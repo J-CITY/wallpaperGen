@@ -1,4 +1,3 @@
-import webcolors
 from random import randint
 from PIL import Image, ImageDraw, ImageFont
 import argparse

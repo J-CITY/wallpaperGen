@@ -2,13 +2,14 @@ from PIL import Image, ImageDraw
 from enum import Enum
 from random import randint
 import numpy as np
+import argparse
 
 class Type(Enum):
 	TRIANGLE = 1
 	VORONOI = 2
 
 class Config:
-	path = "1.jpg"
+	path = "image/in.jpg"
 	xStep = 10
 	yStep = 10
 	outName = "out.png"
@@ -120,9 +121,42 @@ def convertImage(config):
 				draw.polygon(polygon, fill = (int(r/n), int(g/n), int(b/n)))
 		
 	resimage.save(config.outName)
-	
-config = Config()
-convertImage(config)
+
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser(prog="Triangulate effect")
+	parser.add_argument('-input', type=str, help="Input image")
+	parser.add_argument('-output', type=str, help="Output image")
+	parser.add_argument('-xDispersion', type=int, help="xDispersion default 7")
+	parser.add_argument('-yDispersion', type=int, help="yDispersion default 7")
+	parser.add_argument('-xStep', type=int, help="x step default 10")
+	parser.add_argument('-yStep', type=int, help="y step default 10")
+	parser.add_argument('-type', type=str, help="type TRIANGLE or VORONOI")
+	parser.set_defaults(isFront=False)
+
+	xStep = 10
+	yStep = 10
+	type = Type.TRIANGLE
+
+	args = parser.parse_args()
+	config = Config()
+	if args.input is not None:
+		config.path = args.input
+	if args.output is not None:
+		config.outName = args.output
+	if args.xDispersion is not None and args.xDispersion > 0:
+		config.xDispersion = args.xDispersion
+	if args.yDispersion is not None and args.yDispersion > 0:
+		config.yDispersion = args.yDispersion
+	if args.xStep is not None and args.xStep > 0:
+		config.xStep = args.xStep
+	if args.yStep is not None and args.yStep > 0:
+		config.yStep = args.yStep
+	if args.type is not None and args.type > 0:
+		if args.type == "TRIANGLE":
+			config.type = Type.TRIANGLE
+		elif args.type == "VORONOI":
+			config.type = Type.VORONOI
+	convertImage(config)
 
 
 

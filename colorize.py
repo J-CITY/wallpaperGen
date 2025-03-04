@@ -2,7 +2,6 @@ from enum import Enum
 import argparse
 from PIL import Image
 import json
-import cv2
 
 class Ditherer(Enum):
     none = 0,
@@ -48,7 +47,7 @@ def parseArgs():
 def updatePixel(img, x, y, err, mul, div):
     if x < 0 or x >= width:
         return
-    if y < 0 or x >= height:
+    if y < 0 or y >= height:
         return
     #pixel = img[y, x]
     #r = pixel[0] + err[0] * mul / div
@@ -69,9 +68,10 @@ def updatePixel(img, x, y, err, mul, div):
     clamp(g, 0, 255)
     clamp(b, 0, 255)
 
-    mg[y, x] = (r,g,b)
-    img.puypixel((x,y), (r,g,b))
-    #pixels[x, y] = (r,g,b)
+    #img[y, x] = (255,0,0)
+    #print(r,g,b)
+    img.putpixel((x,y), (int(r),int(g),int(b)))
+    #pixels[y, x] = (r,g,b)
 
 
 def dither_floyd_steinberg(img, x, y, err):
@@ -209,7 +209,7 @@ def main():
     parseArgs()
     print(config.inFile)
     print(config.outFile)
-    print(config.dither)
+    #print(config.dither)
     print(config.theme)
 
     if config.inFile == "":
@@ -237,7 +237,7 @@ def main():
             break
 
     palette = []
-    for k, v in value.items():
+    for k, v in themeData.items():
         if k == "name":
             continue
         h = v.lstrip('#')

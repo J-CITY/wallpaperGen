@@ -1,4 +1,3 @@
-import webcolors
 from random import randint
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
 import argparse
@@ -199,8 +198,6 @@ def parseArgs():
 	parser.add_argument('--R', nargs='*', help='Set radius x y of blured circle', type=int)
 	parser.add_argument('--P', nargs='*', help='Polygon coords of blured polygon', type=int)
 	
-	
-	
 	parser.add_argument("--inv", action="store_true", help="Inv blur", default=False)
 	parser.add_argument("--inv_text", action="store_true", help="Inv text blur", default=False)
 	parser.add_argument("--g", action="store_true", help="Gray mode", default=False)
@@ -249,7 +246,8 @@ def parseArgs():
 		wall.polyColor = tuple(list(map(int, args.polygon_color.split(':'))))
 		wall.isBPoly = True
 	wall.invText = args.inv_text
-parseArgs();
+
+parseArgs()
 wall.GenWall()
 
 #colorwall.py -in w.Jpeg --P -300 300 300 300 300 -300 -300 -300

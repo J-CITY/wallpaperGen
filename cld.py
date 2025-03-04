@@ -1,8 +1,9 @@
 import cv2
-import sys
 import numpy as np
+import argparse
 
-image_filename = sys.argv[1]
+image_filename = "image/in.jpg"#sys.argv[1]
+out_filename = "result.jpg"
 color_image = cv2.imread(image_filename, cv2.IMREAD_COLOR)
 
 height = color_image.shape[0]
@@ -66,6 +67,23 @@ for y in range(height):
         for c in range(channel):
             oil_image[y,x,c] = local_channel_count[c, max_intensity] / max_intensity_count
 
-oil_image = oil_image.astype('int')
-cv2.imwrite("result.jpg", oil_image)
-cv2.imwrite("result1.jpg", oil_image[50:100, 50:150])
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(prog="Image cld effect")
+    parser.add_argument('-input', type=str, help="Input image")
+    parser.add_argument('-output', type=str, help="Output image")
+    parser.add_argument('-N', type=int, help="N range")
+    parser.add_argument('-threshold', type=int, help="Threshold")
+    args = parser.parse_args()
+
+    if args.input is not None:
+        image_filename = args.input
+    if args.output is not None:
+        out_filename = args.output
+    if args.N is not None and args.N > 0:
+        N = args.N
+    if args.threshold is not None and args.threshold > 0:
+        threshold = args.threshold
+
+    oil_image = oil_image.astype('int')
+    cv2.imwrite(out_filename, oil_image)
+    #cv2.imwrite("_"+out_filename, oil_image[50:100, 50:150])
