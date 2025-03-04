@@ -58,7 +58,7 @@ pip install argparse numpy
 
 | Before | After |
 | --- | --- |
-| ![img](https://github.com/J-CITY/wallpaperGen/blob/master/image/in.jpg) | ![img](https://github.com/J-CITY/wallpaperGen/blob/master/pic/cld.png) |
+| ![img](https://github.com/J-CITY/wallpaperGen/blob/master/image/in.jpg) | ![img](https://github.com/J-CITY/wallpaperGen/blob/master/pic/cld.jpg) |
 
 
 ### triangle.py
